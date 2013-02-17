@@ -121,7 +121,7 @@ JavaScript默认语法并不支持命名空间，但很容易可以实现此特�
 
 图5-1 展示了上述代码创建的命名空间对象在Firebug下的可视结果
 
-![MYAPP命名空间在Firebug下的可视结果](http://img04.taobaocdn.com/tps/i4/T1_8m_Xd8iXXXXXXXX-434-216.png)
+![MYAPP命名空间在Firebug下的可视结果](./Figure/chapter5/5-1.jpg)
 
 图5-1 MYAPP命名空间在Firebug下的可视结果
 
@@ -183,7 +183,8 @@ JavaScript不像Java或者其它语言，它没有专门的提供私有、保护
 			return this.myprop;
 		}
 	};
-	console.log(myobj.myprop); // `myprop` is publicly accessible console.log(myobj.getProp()); // getProp() is public too
+	console.log(myobj.myprop); // `myprop` is publicly accessible
+	console.log(myobj.getProp()); // getProp() is public too
 
 当你使用构造函数创建对象的时候也是一样的，所有的成员都是公有的：
 
@@ -194,7 +195,8 @@ JavaScript不像Java或者其它语言，它没有专门的提供私有、保护
 		};
 	}
 	var toy = new Gadget();
-	console.log(toy.name); // `name` is public console.log(toy.stretch()); // stretch() is public
+	console.log(toy.name); // `name` is public
+	console.log(toy.stretch()); // stretch() is public
 
 ### 私有成员
 
@@ -258,7 +260,7 @@ JavaScript不像Java或者其它语言，它没有专门的提供私有、保护
 
 在Firebug控制台中打印出来的结果如图5-2：
 
-![图5-2 私有对象被修改了](./figure/chapter5/5-2.jpg)
+![图5-2 私有对象被修改了](./Figure/chapter5/5-2.jpg)
 
 图5-2 私有对象被修改了
 
@@ -336,7 +338,8 @@ JavaScript不像Java或者其它语言，它没有专门的提供私有、保护
 	}());
 
 	var toy = new Gadget();
-	console.log(toy.getName()); // privileged "own" method console.log(toy.getBrowser()); // privileged prototype method
+	console.log(toy.getName()); // privileged "own" method 
+	console.log(toy.getBrowser()); // privileged prototype method
 
 ### 将私有函数暴露为公有方法
 
@@ -424,41 +427,41 @@ JavaScript不像Java或者其它语言，它没有专门的提供私有、保护
 
 如果需要的话，你可以在立即执行的函数提供的闭包中声明私有属性和私有方法。函数顶部也是声明依赖的地方。在变量声明的下方，你可以选择性地放置辅助初始化模块的一次性代码。函数最终返回的是一个包含模块公共API的对象：
 
-MYAPP.namespace('MYAPP.utilities.array');
-MYAPP.utilities.array = (function () {
+	MYAPP.namespace('MYAPP.utilities.array');
+	MYAPP.utilities.array = (function () {
 	
 		// dependencies
-	var uobj = MYAPP.utilities.object,
-		ulang = MYAPP.utilities.lang,
+		var uobj = MYAPP.utilities.object,
+			ulang = MYAPP.utilities.lang,
 
 		// private properties
-		array_string = "[object Array]",
-		ops = Object.prototype.toString;
+			array_string = "[object Array]",
+			ops = Object.prototype.toString;
 
 		// private methods
 		// ...
 		// end var
 
-	// optionally one-time init procedures
-	// ...
+		// optionally one-time init procedures
+		// ...
 
-	// public API
-	return {
-
-		inArray: function (needle, haystack) {
-			for (var i = 0, max = haystack.length; i < max; i += 1) {
-				if (haystack[i] === needle) {
-					return true;
+		// public API
+		return {
+	
+			inArray: function (needle, haystack) {
+				for (var i = 0, max = haystack.length; i < max; i += 1) {
+					if (haystack[i] === needle) {
+						return true;
+					}
 				}
+			},
+	
+			isArray: function (a) {
+				return ops.call(a) === array_string;
 			}
-		},
-
-		isArray: function (a) {
-			return ops.call(a) === array_string;
-		}
-		// ... more methods and properties
-	};
-}());
+			// ... more methods and properties
+		};
+	}());
 
 模块模式被广泛使用，这是一种值得强烈推荐的模式，它可以帮助组织代码，尤其是代码量在不断增长的时候。
 
@@ -470,23 +473,23 @@ MYAPP.utilities.array = (function () {
 
 	MYAPP.utilities.array = (function () {
 
-			// private properties
+		// private properties
 		var array_string = "[object Array]",
 			ops = Object.prototype.toString,
 
-			// private methods
-			inArray = function (haystack, needle) {
-				for (var i = 0, max = haystack.length; i < max; i += 1) {
-					if (haystack[i] === needle) {
-						return i;
-					}
+		// private methods
+		inArray = function (haystack, needle) {
+			for (var i = 0, max = haystack.length; i < max; i += 1) {
+				if (haystack[i] === needle) {
+					return i;
 				}
-				return −1;
-			},
-			isArray = function (a) {
-				return ops.call(a) === array_string;
-			};
-			// end var
+			}
+			return −1;
+		},
+		isArray = function (a) {
+			return ops.call(a) === array_string;
+		};
+		// end var
 
 		// revealing public API
 		return {
@@ -505,36 +508,37 @@ MYAPP.utilities.array = (function () {
 
 	MYAPP.utilities.Array = (function () {
 
-			// dependencies
+		// dependencies
 		var uobj = MYAPP.utilities.object,
 			ulang = MYAPP.utilities.lang,
 
-			// private properties and methods...
-			Constr;
+		// private properties and methods...
+		Constr;
 
-			// end var
+		// end var
 
-			// optionally one-time init procedures
-			// ...
+		// optionally one-time init procedures
+		// ...
 
-			// public API -- constructor
-			Constr = function (o) {
-				this.elements = this.toArray(o);
-			};
-			// public API -- prototype
-			Constr.prototype = {
-				constructor: MYAPP.utilities.Array,
-				version: "2.0",
-				toArray: function (obj) {
-					for (var i = 0, a = [], len = obj.length; i < len; i += 1) {
-						a[i] = obj[i];
-					}
-					return a;
+		// public API -- constructor
+		Constr = function (o) {
+			this.elements = this.toArray(o);
+		};
+		// public API -- prototype
+		Constr.prototype = {
+			constructor: MYAPP.utilities.Array,
+			version: "2.0",
+			toArray: function (obj) {
+				for (var i = 0, a = [], len = obj.length; i < len; i += 1) {
+					a[i] = obj[i];
 				}
-			};
+				return a;
+			}
+		};
 
 		// return the constructor
-		// to be assigned to the new namespace return Constr;
+		// to be assigned to the new namespace 
+		return Constr;
 
 	}());
 
@@ -668,7 +672,7 @@ MYAPP.utilities.array = (function () {
 最后，我们来实现`Sandbox()`构造函数（你可能会很自然地想将这类构造函数命名为对你的类库或者应用有意义的名字）：
 
 	function Sandbox() {
-			// turning arguments into an array
+		// turning arguments into an array
 		var args = Array.prototype.slice.call(arguments),
 			// the last argument is the callback
 			callback = args.pop(),
@@ -724,11 +728,11 @@ MYAPP.utilities.array = (function () {
 
 ## 静态成员
 
-静态属性和方法是指那些在所有的实例中保持一致的成员。在基于类的语言中，表态成员是用专门的语法来创建，使用时就像是类自己的成员一样。比如`MathUtils`类的`max()`方法会被像这样调用：`MathUtils.max(3, 5)`。这是一个公有静态成员的示例，即可以在不实例化类的情况下使用。同样也可以有私有的静态方法，即对类的使用者不可见，而在类的所有实例间是共享的。我们来看一下如何在JavaScript中实现公有和私有静态成员。
+静态属性和方法是指那些在所有的实例中保持一致的成员。在基于类的语言中，静态成员是用专门的语法来创建，使用时就像是类自己的成员一样。比如`MathUtils`类的`max()`方法会被像这样调用：`MathUtils.max(3, 5)`。这是一个公有静态成员的示例，即可以在不实例化类的情况下使用。同样也可以有私有的静态方法，即对类的使用者不可见，而在类的所有实例间是共享的。我们来看一下如何在JavaScript中实现公有和私有静态成员。
 
 ### 公有静态成员
 
-在JavaScript中没有专门用于静态成员的语法。但通过给构造函数添加属性的方法，可以拥有和基于类的语言一样的使用语法。之所有可以这样做是因为构造函数和其它的函数一样，也是对象，可以拥有属性。前一章讨论过的Memoization模式也使用了同样的方法，即给函数添加属性。
+在JavaScript中没有专门用于静态成员的语法。但通过给构造函数添加属性的方法，可以拥有和基于类的语言一样的使用语法。之所以可以这样做是因为构造函数和其它的函数一样，也是对象，可以拥有属性。前一章讨论过的Memoization模式也使用了同样的方法，即给函数添加属性。
 
 下面的例子定义了一个构造函数`Gadget`，它有一个静态方法`isShiny()`和一个实例方法`setPrice()`。`isShiny()`是一个静态方法，因为它不需要指定一个对象才能工作（就像你不需要先指定一个工具（gadget）才知道所有的工具是不是有光泽的（shiny））。但setPrice()却需要一个对象，因为工具可能有不同的定价：
 
@@ -740,7 +744,8 @@ MYAPP.utilities.array = (function () {
 		return "you bet";
 	};
 
-	// a normal method added to the prototype Gadget.prototype.setPrice = function (price) {
+	// a normal method added to the prototype 
+	Gadget.prototype.setPrice = function (price) {
 		this.price = price;
 	};
 
@@ -999,7 +1004,7 @@ JavaScript中是没有常量的，尽管在一些比较现代的环境中可能�
 
 JavaScript对于习惯于用类来思考的人来说可能会比较费解，这也是很多开发者希望将JavaScript代码变得更像基于类的语言的原因。其中的一种尝试就是由Douglas Crockford提出来的`method()`方法。其实，他也承认将JavaScript变得像基于类的语言是不推荐的方法，但不管怎样，这都是一种有意思的模式，你可能会在一些应用中见到。
 
-使用构造函数主须Java中使用类一样。它也允许你在构造函数体的`this`中添加实例属性。但是在`this`中添加方法却是不高效的，因为最终这些方法会在每个实例中被重新创建一次，这样会花费更多的内存。这也是为什么可重用的方法应该被放到构造函数的`prototype`属性（原型）中的原因。但对很多开发者来说，`prototype`可能跟个外星人一样陌生，所以你可以通过一个方法将它隐藏起来。
+使用构造函数就像Java中使用类一样。它也允许你在构造函数体的`this`中添加实例属性。但是在`this`中添加方法却是不高效的，因为最终这些方法会在每个实例中被重新创建一次，这样会花费更多的内存。这也是为什么可重用的方法应该被放到构造函数的`prototype`属性（原型）中的原因。但对很多开发者来说，`prototype`可能跟个外星人一样陌生，所以你可以通过一个方法将它隐藏起来。
 
 > 给语言添加一个使用起来更方便的方法一般叫作“语法糖”。在这个例子中，你可以将`method()`方法称为一个语法糖方法。
 

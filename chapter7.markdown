@@ -199,17 +199,17 @@ uni.constructor不再和Universe()相同的原因是uni.constructor仍然是指�
 		var instance;
 		
 		Universe = function Universe() {
-		
-		if (instance) {
-			return instance;
-		}
-		
-		instance = this;
-		
-		// all the functionality
-		this.start_time = 0;
-		this.bang = "Big";
-		
+			
+			if (instance) {
+				return instance;
+			}
+			
+			instance = this;
+			
+			// all the functionality
+			this.start_time = 0;
+			this.bang = "Big";
+			
 		};
 	
 	}());
@@ -458,7 +458,7 @@ Object()也是一个工厂这一事实可能没有太多实际用处，仅仅是
 Sale()构造函数现在有了一个作为自己属性的装饰器列表：
 
 	function Sale(price) {
-		this.price = (price > 0) || 100;
+		this.price = price || 100;
 		this.decorators_list = [];
 	}
 	
@@ -692,7 +692,7 @@ Sale()构造函数现在有了一个作为自己属性的装饰器列表：
 
 图7-2展示了这个场景，当客户代码发出初始化请求时，代理对象回复一切就绪，但并没有将请求传递过去，只有在客户代码真正需要真正的主体做些工作的时候才将两个请求一起传递过去。
 
-![图7-2 通过代理对象时客户代码与真正的主体的关系](./figure/chapter7/7-2.jpg)
+![图7-2 通过代理对象时客户代码与真正的主体的关系](./Figure/chapter7/7-2.jpg)
 
 图7-2 通过代理对象时客户代码与真正的主体的关系
 
@@ -709,7 +709,7 @@ Sale()构造函数现在有了一个作为自己属性的装饰器列表：
 
 我们的应用允许一次展开好几个（或全部）视频，所以这是一个合并网络请求的绝好机会。
 
-![图7-3 真实的视频列表](./figure/chapter7/7-3.jpg)
+![图7-3 真实的视频列表](./Figure/chapter7/7-3.jpg)
 
 图7-3 真实的视频列表
 
@@ -916,11 +916,11 @@ proxy对象创建了一个队列来收集50ms之内接受到的视频ID，然后
 
 图7-4和7-5展示了使用代理模式将与服务器三次数据交互（不用代理模式时）变为一次交互的过程。
 
-![图7-4 与服务器三次数据交互](./figure/chapter7/7-4.jpg)
+![图7-4 与服务器三次数据交互](./Figure/chapter7/7-4.jpg)
 
 图7-4 与服务器三次数据交互
 
-![图7-5 通过一个代理对象合并请求，减少与服务器数据交互](./figure/chapter7/7-5.jpg)
+![图7-5 通过一个代理对象合并请求，减少与服务器数据交互](./Figure/chapter7/7-5.jpg)
 
 图7-5 通过一个代理对象合并请求，减少与服务器数据交互
 
@@ -929,7 +929,7 @@ proxy对象创建了一个队列来收集50ms之内接受到的视频ID，然后
 
 在这个例子中，客户对象（videos）已经可以做到不对同一个对象重复发出请求。但现实情况中并不总是这样。这个代理对象还可以通过缓存之前的请求结果到cache属性中来进一步保护真正的主体http对象（图7-6）。然后当videos对象需要对同一个ID的视频请求第二次时，proxy对象可以直接从缓存中取出，从而避免一次网络交互。
 
-![图7-6 代理缓存](./figure/chapter7/7-6.jpg)
+![图7-6 代理缓存](./Figure/chapter7/7-6.jpg)
 
 图7-6 代理缓存
 
@@ -940,7 +940,7 @@ proxy对象创建了一个队列来收集50ms之内接受到的视频ID，然后
 
 中介者模式就是一个缓解此问题的办法，它通过解耦来提升代码的可维护性（见图7-7）。在这个模式中，各个彼此合作的对象并不直接通讯，而是通过一个mediator（中介者）对象通讯。当一个对象改变了状态后，它就通知中介者，然后中介者再将这个改变告知给其它应该知道这个变化的对象。
 
-![图7-7 中介者模式中的对象关系](./figure/chapter7/7-7.jpg)
+![图7-7 中介者模式中的对象关系](./Figure/chapter7/7-7.jpg)
 
 图7-7 中介者模式中的对象关系
 
@@ -962,7 +962,7 @@ proxy对象创建了一个队列来收集50ms之内接受到的视频ID，然后
 
 你可以在这里看到这个游戏的在线演示<http://jspatterns.com/book/7/mediator.html>。
 
-![图7-8 游戏涉及的对象](./figure/chapter7/7-8.jpg)
+![图7-8 游戏涉及的对象](./Figure/chapter7/7-8.jpg)
 
 图7-8 游戏涉及的对象
 
@@ -977,7 +977,7 @@ proxy对象创建了一个队列来收集50ms之内接受到的视频ID，然后
 		mediator.played();
 	};
 	
-scoreboard对象（计分板）有一个update()方法，它会在每次玩家玩完后被中介者调用。计分析根本不知道玩家的任何信息，也不保存分数，它只负责显示中介者给过来的分数：
+scoreboard对象（计分板）有一个update()方法，它会在每次玩家玩完后被中介者调用。计分板根本不知道玩家的任何信息，也不保存分数，它只负责显示中介者给过来的分数：
 
 	var scoreboard = {
 	
@@ -1123,7 +1123,7 @@ paper对象也可以提供unsubscribe()方法，它可以将订阅者从数组�
 		}
 	};
 
-下面这个函数接受一个对象作为参数，并通过复制通用的发布者的方法将这个对象墨迹成发布者：
+下面这个函数接受一个对象作为参数，并通过复制通用的发布者的方法将这个对象转变成发布者：
 
 	function makePublisher(o) {
 		var i;
@@ -1277,35 +1277,35 @@ scoreboard对象和原来一样，它只是简单地将当前分数显示出来�
 
 game对象会关注所有的玩家，这样它就可以给出分数并且触发scorechange事件。它也会订阅浏览吕中所有的keypress事件，这样它就会知道按钮对应的玩家：
 
-var game = {
+	var game = {
 
-	keys: {},
+		keys: {},
 
-	addPlayer: function (player) {
-		var key = player.key.toString().charCodeAt(0);
-		this.keys[key] = player;
-	},
+		addPlayer: function (player) {
+			var key = player.key.toString().charCodeAt(0);
+			this.keys[key] = player;
+		},
 
-	handleKeypress: function (e) {
-		e = e || window.event; // IE
-		if (game.keys[e.which]) {
-			game.keys[e.which].play();
-		}
-	},
-
-	handlePlay: function (player) {
-		var i,
-			players = this.keys,
-			score = {};
-
-		for (i in players) {
-			if (players.hasOwnProperty(i)) {
-				score[players[i].name] = players[i].points;
+		handleKeypress: function (e) {
+			e = e || window.event; // IE
+			if (game.keys[e.which]) {
+				game.keys[e.which].play();
 			}
+		},
+
+		handlePlay: function (player) {
+			var i,
+				players = this.keys,
+				score = {};
+
+			for (i in players) {
+				if (players.hasOwnProperty(i)) {
+					score[players[i].name] = players[i].points;
+				}
+			}
+			this.fire('scorechange', score);
 		}
-		this.fire('scorechange', score);
-	}
-};
+	};
 
 用于将任意对象转变为订阅者的makePublisher()还是和之前一样。game对象会变成发布者（这样它才可以触发scorechange事件），Player.prototype也会变成发布者，以使得每个玩家对象可以触发play和newplayer事件：
 
@@ -1338,7 +1338,8 @@ game对象订阅play和newplayer事件（以及浏览器的keypress事件），s
 		new Player(playername, key);
 	}
 
-这就是游戏的全部。你可以在<http://jspatterns .com/book/7/observer-game.html>看到完整的源代码并且试玩一下。
+
+这就是游戏的全部。你可以在<http://www.jspatterns.com/book/7/observer-game.html>看到完整的源代码并且试玩一下。
 
 值得注意的是，在中介者模式中，mediator对象必须知道所有的对象，然后在适当的时机去调用对应的方法。而这个例子中，game对象会显得笨一些（译注：指知道的信息少一些），游戏依赖于对象去观察特写的事件然后触发相应的动作：如scoreboard观察scorechange事件。这使得对象之间的耦合更松了（对象间知道彼此的信息越少越好），而代价则是弄清事件和订阅者之间的对应关系会更困难一些。在这个例子中，所有的订阅行为都发生在代码中的同一个地方，而随着应用规模的境长，on()可能会被在各个地方调用（如在每个对象的初始化代码中）。这使得调试更困难一些，因为没有一个集中的地方来看这些代码并理解正在发生什么事情。在观察者模式中，你将不再能看到那种从开头一直跟到结尾的顺序执行方式。
 
