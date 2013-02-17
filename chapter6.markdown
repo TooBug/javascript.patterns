@@ -525,7 +525,7 @@ constructor属性很少用，但是在运行时检查对象很方便。你可以
 <a name="a18"></a>
 ### 讨论
 
-在原型继承模式中，parent不需要使用对象字面量来创建。（尽管这是一种更觉的方式。）可以使用构造函数来创建parent。注意，如果你这样做，那么自己的属性和原型上的属性都将被继承：
+在原型继承模式中，parent不需要使用对象字面量来创建。（尽管这是一种更常用的方式。）可以使用构造函数来创建parent。注意，如果你这样做，那么自己的属性和原型上的属性都将被继承：
 
 	// parent constructor
 	function Person() {
@@ -794,7 +794,7 @@ ECMAScript5在Function.prototype中添加了一个方法叫bind()，使用时和
 
 	var newFunc = obj.someFunc.bind(myobj, 1, 2, 3);
 	
-这意味着将someFunc()主myobj绑定了并且传入了someFunc()的前三个参数。这也是一个在第4章讨论过的部分应用的例子。
+这意味着将someFunc()和myobj绑定了,并且还传入了someFunc()的前三个参数。这也是一个在第4章讨论过的部分应用的例子。
 
 让我们来看一下当你的程序跑在低于ES5的环境中时如何实现Function.prototype.bind()：
 

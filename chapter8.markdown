@@ -176,6 +176,7 @@ DOM操作性能不好，这是影响JavaScript性能的最主要原因。性能�
 	// suboptimal solution
 	var b = document.getElementById('clickme'),
 		count = 0;
+
 	b.onclick = function () {
 		count += 1;
 		b.innerHTML = "Click me: " + count;
@@ -213,18 +214,18 @@ DOM操作性能不好，这是影响JavaScript性能的最主要原因。性能�
 
 		// no bubble
 		if (typeof e.stopPropagation === "function") {
-		e.stopPropagation();
+			e.stopPropagation();
 		}
 		if (typeof e.cancelBubble !== "undefined") {
-		e.cancelBubble = true;
+			e.cancelBubble = true;
 		}
 
 		// prevent default action
 		if (typeof e.preventDefault === "function") {
-		e.preventDefault();
+			e.preventDefault();
 		}
 		if (typeof e.returnValue !== "undefined") {
-		e.returnValue = false;
+			e.returnValue = false;
 		}
 
 	}
@@ -246,7 +247,9 @@ DOM操作性能不好，这是影响JavaScript性能的最主要原因。性能�
 
 我们来的睦一个实例，三个按钮放在一个div元素中（图8-1）。你可以在<http://jspatterns.com/book/8/click-delegate.html>看到这个事件委托的实例。
 
-![图8-1 事件委托示例：三个在点击时增加计数器值的按钮](./figure/chapter8/8-1.jpg)
+> (译注: 上面的URL中的例子在IE下单击会没有反应,问题在于使用document.attachEvernt时传递的第一个参数应该是'onclick',而不是'click'.)
+
+![图8-1 事件委托示例：三个在点击时增加计数器值的按钮](./Figure/chapter8/8-1.jpg)
 
 图8-1 事件委托示例：三个在点击时增加计数器值的按钮
 
@@ -368,7 +371,7 @@ web worker使用postMessage()来和调用它的程序通讯，调用者通过onm
 	xhr.open("GET", "page.html", true);
 	xhr.send();
 
-下面是一个完整的示例，它获取新页面的内容，然后将当前页面的内容替换掉（可以在<http://jspatterns.com/ book/8/xhr.html>看到示例）：
+下面是一个完整的示例，它获取新页面的内容，然后将当前页面的内容替换掉（可以在<http://jspatterns.com/book/8/xhr.html>看到示例）：
 
 	var i, xhr, activeXids = [
 		'MSXML2.XMLHTTP.3.0',
@@ -444,7 +447,7 @@ getdata.php可以是任何类型的页面或者脚本。callback参数指定用�
 
 你可以在<http://jspatterns.com/book/8/ttt.html>玩这个游戏。
 
-![图8-2 使用JSONP的井字棋游戏](./figure/chapter8/8-2.jpg)
+![图8-2 使用JSONP的井字棋游戏](./Figure/chapter8/8-2.jpg)
 
 图8-2 使用JSONP的井字棋游戏
 
@@ -614,7 +617,8 @@ CDN是指“文件分发网络”（Content Delivery Network）。这是一项�
 
 	// option 1
 	<script>
-	console.log("hello world"); </script>
+	console.log("hello world");
+	</script>
 	// option 2
 	<script src="external.js"></script>
 
@@ -627,7 +631,7 @@ CDN是指“文件分发网络”（Content Delivery Network）。这是一项�
 	还有一些不同大小写形式的“JavaScript”，有的时候还会带上一个版本号。language属性不应该被使用，因为默认的语言就是JavaScript。版本号也不像想象中工作得那么好，这应该是一个设计上的错误。
 - type="text/javascript"
 
-	这个属性是HTML4和XHTML1标准所要求的，但它不应该存在，因为浏览器会假设它就是JavaScript。HTML5不再要求这个属性。除非是要强制通过难，否则没有任何使用type的理由。
+	这个属性是HTML4和XHTML1标准所要求的，但它不应该存在，因为浏览器会假设它就是JavaScript。HTML5不再要求这个属性。除非是要强制通过验证，否则没有任何使用type的理由。
 - defer
 	
 	（或者是HTML5中更好的async）是一种指定浏览器在下载外部脚本时不阻塞页面其它部分的方法，但还没有被广泛支持。关于阻塞的更多内容会在后面提及。
@@ -784,7 +788,7 @@ HTTP协议支持“分块编码”。它允许将页面分成一块一块发送�
 
 #### 插入\<script\>元素
 
-通常脚本是插入到文档的<head>中的，但其实你可以插入任何元素中，包括body（像JSONP示例中那样）。
+通常脚本是插入到文档的\<head\>中的，但其实你可以插入任何元素中，包括\<body\>（像JSONP示例中那样）。
 
 在前面的例子中，我们使用documentElement来插到\<head\>中，因为documentElement就是\<html\>，它的第一个子元素是\<head\>：
 
