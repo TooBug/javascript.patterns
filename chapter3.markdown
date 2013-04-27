@@ -450,7 +450,7 @@ JavaScript中的正则表达式也是对象，可以通过两种方式创建它�
 
 	var re = /pattern/gmi;
 
-使用正则表达式字面量可以让代码更加简洁高效，比如当调用`String.prototype.prelace()`方法时，可以传入正则表达式参数：
+使用正则表达式字面量可以让代码更加简洁高效，比如当调用`String.prototype.replace()`方法时，可以传入正则表达式参数：
 
 	var no_letters = "abc123XYZ".replace(/[a-z]/gi, "");
 	console.log(no_letters); // 123
