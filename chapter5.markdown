@@ -685,7 +685,7 @@ JavaScript不像Java或者其它语言，它没有专门的提供私有、保护
 
 		// 给this对象添加模块
 		// 未指明模块或者*都表示“使用所有模块”
-		if (!modules || modules === '*') {
+		if (!modules || modules[0] === '*') {
 			modules = [];
 			for (i in Sandbox.modules) {
 				if (Sandbox.modules.hasOwnProperty(i)) {
